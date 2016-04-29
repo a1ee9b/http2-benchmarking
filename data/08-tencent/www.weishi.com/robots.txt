@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+Allow: /search_new.html?*ms_key=*
+Disallow: /*?ADUIN=*
+Disallow: /*?ADTAG=*
+Disallow: /*?sid=*
+Disallow: /dtest/
+Sitemap: http://m.v.qq.com/sitemap/sitemap_index.xml
+
+User-agent:Baiduspider
+Disallow:/play/play.html?coverid=bsiurax44u5gb44*
+Disallow:/weixin/weixinplay.html?coverid=bsiurax44u5gb44*
+
+User-agent:360Spider
+Disallow:/play/play.html?coverid=bsiurax44u5gb44*
+Disallow:/weixin/weixinplay.html?coverid=bsiurax44u5gb44*
+
+User-agent:360Spider-Image
+Disallow:/play/play.html?coverid=bsiurax44u5gb44*
+Disallow:/weixin/weixinplay.html?coverid=bsiurax44u5gb44*
+
+User-agent:360Spider-Video
+Disallow:/play/play.html?coverid=bsiurax44u5gb44*
+Disallow:/weixin/weixinplay.html?coverid=bsiurax44u5gb44*
+
+User-agent: yisouspider
+Disallow: /

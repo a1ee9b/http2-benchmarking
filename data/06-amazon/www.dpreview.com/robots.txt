@@ -1,0 +1,6 @@
+User-agent: *
+Disallow:   /ad
+Disallow:   /api
+Disallow:   /forums/reply
+Disallow:   /reviews_data
+Disallow:   /search

@@ -1,0 +1,5 @@
+User-agent: *
+Disallow:
+
+Sitemap: http://dnf.qq.com/sitemap.xml
+

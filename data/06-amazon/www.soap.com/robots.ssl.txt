@@ -1,0 +1,18 @@
+User-agent: *
+Disallow: /login*
+Disallow: *%7C
+Disallow: *%7c
+Disallow: /buy/
+Allow: /buy/Brand
+
+User-agent: 008
+Disallow: /
+
+User-agent: Etaospider
+Disallow: /
+
+User-agent: sistrix
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /

@@ -1,0 +1,21 @@
+User-agent: *
+Disallow: /album/
+Disallow: /auto/
+Disallow: /assistant
+Disallow: /collections
+Disallow: /movie/
+Disallow: /photo/
+Disallow: /rediscover/
+Disallow: /return-from-share
+Disallow: /search/
+Disallow: /settings
+Disallow: /share/
+Disallow: /shared
+Disallow: /story/
+Disallow: /trash
+Disallow: /unsaved
+
+User-agent: Twitterbot
+Allow: /share/
+
+Sitemap: http://www.gstatic.com/social/photosui/sitemap/sitemap.xml

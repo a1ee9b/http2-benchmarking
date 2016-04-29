@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: http://x5.qq.com/sitemap.xml

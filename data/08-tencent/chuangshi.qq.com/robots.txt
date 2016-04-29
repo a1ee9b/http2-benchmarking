@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /bookreader/
+Disallow: /channel/
+Disallow: /index.php/bookreader/
+Disallow: /novel/getNovelfansajax.html
+Disallow: /read/
+Disallow: /search/
+

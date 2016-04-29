@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://de.eurosport.yahoo.com/sitemap.xml

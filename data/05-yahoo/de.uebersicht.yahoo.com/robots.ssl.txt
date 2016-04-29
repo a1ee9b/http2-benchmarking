@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: 
+Sitemap: https://de.uebersicht.yahoo.com/sitemap.xml

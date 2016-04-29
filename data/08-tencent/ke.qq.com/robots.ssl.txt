@@ -1,0 +1,11 @@
+User-agent: *
+
+# agency和user禁止访问
+Disallow: /agency/
+Disallow: /user/
+
+# agency中允许访问的目录
+Allow: /agency/join
+Allow: /agency/personal
+
+Sitemap: http://ke.qq.com/sitemap.xml

@@ -1,0 +1,1 @@
+User-agent: *Disallow: /2013/0607/58551.shtmlDisallow: /v1.0/my/

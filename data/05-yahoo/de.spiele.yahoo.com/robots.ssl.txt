@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+Sitemap: https://de.spiele.yahoo.com/sitemap.xml
+

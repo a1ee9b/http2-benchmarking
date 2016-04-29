@@ -1,0 +1,38 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+User-agent: Slurp
+Crawl-delay: 1
+Disallow: /
+
+
+
+User-agent: MSNPTC
+Crawl-delay: 1
+Disallow: /
+
+
+User-agent: *
+Disallow: /
+
+
+
