@@ -1,9 +1,0 @@
-
-sitemap:http://browser.qq.com/sitemap.xml
-
-
-User-agent: *
-Disallow: /ci/
-Disallow: /css/
-Disallow: /js/
-Disallow: /style/

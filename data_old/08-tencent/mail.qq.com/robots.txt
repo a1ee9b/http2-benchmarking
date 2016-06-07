@@ -1,3 +1,0 @@
-User-Agent: *
-Allow: /cgi-bin/loginpage
-Disallow: /cgi-bin/ 

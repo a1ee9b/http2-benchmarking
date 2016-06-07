@@ -1,8 +1,0 @@
-User-agent: *
-Allow:    */mail/help/
-Allow:    /$
-Allow:    /mail/$
-Disallow: /
-
-Sitemap: https://www.google.com/mail/help/sitemap.xml
-

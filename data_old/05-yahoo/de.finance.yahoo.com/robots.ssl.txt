@@ -1,3 +1,0 @@
-User-agent: *
-Disallow: /print/
-Sitemap: https://de.finance.yahoo.com/sitemap.xml
