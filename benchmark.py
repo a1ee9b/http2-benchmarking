@@ -1,74 +1,90 @@
 #! /usr/bin/python3
-import urllib3
+# from hyper import HTTPConnection
+
+import requests
+from hyper.contrib import HTTP20Adapter
 import time
 from bs4 import BeautifulSoup
 from tabulate import tabulate
 
-http_urls = [
+urls = [
     "http://localhost:9001/unoptimized",
     "http://localhost:9001/concatenated",
     "http://localhost:9001/optimized",
-]
-ssl_urls = [
     "https://localhost:9002/unoptimized",
     "https://localhost:9002/concatenated",
     "https://localhost:9002/optimized",
-]
-http2_urls = [
     "https://localhost:9003/unoptimized",
     "https://localhost:9003/concatenated",
     "https://localhost:9003/optimized"
 ]
 
-numberOfRequests = 100
+numberOfRequests = 10
 loadJS = True
 loadCSS = True
 loadImages = True
 
-http = urllib3.PoolManager()
-urllib3.disable_warnings()
-timings = list()
+
+requests.packages.urllib3.disable_warnings()
+s = requests.Session()
+s.mount('localhost', HTTP20Adapter())
 
 
-def runBenchmarks(urls):
-    for page in urls:
+def runBenchmarks(links):
+    for page in links:
         print("\nRunning page ", page)
+        timings = list()
         for i in range(0, numberOfRequests):
             print(". ", end="", flush=True)
-            getBaseHTML(page, i)
+            runTiming = runBaseHTML(page, i)
+            timings.extend(runTiming)
+
+        result = analyzeTimings(timings)
+        print("\n"+str(result))
 
 
-def getBaseHTML(url, requestNumber):
+def runBaseHTML(url, requestNumber):
     resourceQueue = list()
-    htmlFile = benchmarkBaseHTML(url, requestNumber)
-    if htmlFile.status != 200:
-        return
+    (htmlFile, timing) = benchmarkBaseHTML(url, requestNumber)
 
-    html = BeautifulSoup(htmlFile.data, 'html.parser')
+    html = BeautifulSoup(htmlFile, 'html.parser')
 
     if loadJS:
         jsLinks = getJSLinks(html)
-        resourceQueue.append(jsLinks)
+        if jsLinks is not None:
+            resourceQueue.extend(jsLinks)
 
     if loadCSS:
         cssLinks = getCssLinks(html)
-        resourceQueue.append(cssLinks)
+        if cssLinks is not None:
+            resourceQueue.extend(cssLinks)
 
     if loadImages:
         imageLinks = getImageLinks(html)
-        resourceQueue.append(imageLinks)
+        if imageLinks is not None:
+            resourceQueue.extend(imageLinks)
 
-    benchmarkQueue(resourceQueue, url, requestNumber)
+    timings = benchmarkQueue(resourceQueue, url, requestNumber)
+    timings.append(timing)
+    return timings
 
 
 def getJSLinks(html):
-    for link in html.find_all('script'):
-        return link.get('src')
+    allPaths = list()
+    allLinks = html.find_all('script')
+    for link in allLinks:
+        allPaths.append(link.get('src'))
+
+    return allPaths
 
 
 def getCssLinks(html):
-    for link in html.find_all('rel="stylesheet"'):  # TODO rel=stylesheet
-        return link.get('src')
+    allPaths = list()
+    allLinks = html.find_all('link')
+    for link in allLinks:
+        allPaths.append(link.get('href'))
+
+    return allPaths
 
 
 def getImageLinks(html):
@@ -78,20 +94,24 @@ def getImageLinks(html):
 
 def benchmarkBaseHTML(url, requestNumber):
     start = startTimer()
-    htmlFile = http.request('GET', url)
+    htmlFile = s.get(url, verify=False).text
     elapsedTime = stopTimer(start)
-    saveTiming(elapsedTime, url, requestNumber)
 
-    return htmlFile
+    return htmlFile, [url, requestNumber, elapsedTime, False]
 
 
 def benchmarkQueue(links, url, requestNumber):
+    timings = list()
     for link in links:
         if link is not None:
             start = startTimer()
-            http.request('GET', url+link)
+
+            s.get(url+link, verify = False)
+
             elapsedTime = stopTimer(start)
-            saveTiming(elapsedTime, url, requestNumber, link)
+            timings.append([url, requestNumber, elapsedTime, link])
+
+    return timings
 
 
 def startTimer():
@@ -104,16 +124,11 @@ def stopTimer(startTime):
     return delta
 
 
-def saveTiming(elapsedTime, url, requestNumber, link=False):
-    timing = [url, requestNumber, elapsedTime, link]
-    timings.append(timing)
-
-
-def printResults():
+def printResults(timings):
     print(tabulate(timings))
 
 
-def analyzeTimings():
+def analyzeTimings(timings):
     minimum = 100
     minimumRequest = None
     maximum = 0
@@ -151,16 +166,5 @@ def analyzeTimings():
 
 
 if __name__ == "__main__":
-    runBenchmarks(http_urls)
-    result = analyzeTimings()
-    print("\nHTTP:\n", result)
-
-    runBenchmarks(ssl_urls)
-    result = analyzeTimings()
-    print("\nSSL:\n", result)
-
-    runBenchmarks(http2_urls)
-    result = analyzeTimings()
-    print("\nHTTP2:\n", result)
-
+    runBenchmarks(urls)
     # printResults()
