@@ -4,8 +4,23 @@ import time
 from bs4 import BeautifulSoup
 from tabulate import tabulate
 
-urls = ["https://www.premiumnet.de/", "http://www.golem.de/", "http://feedly.com/i/welcome", "https://www.facebook.com/"]
-numberOfRequests = 5
+http_urls = [
+    "http://localhost:9001/unoptimized",
+    "http://localhost:9001/concatenated",
+    "http://localhost:9001/optimized",
+]
+ssl_urls = [
+    "https://localhost:9002/unoptimized",
+    "https://localhost:9002/concatenated",
+    "https://localhost:9002/optimized",
+]
+http2_urls = [
+    "https://localhost:9003/unoptimized",
+    "https://localhost:9003/concatenated",
+    "https://localhost:9003/optimized"
+]
+
+numberOfRequests = 100
 loadJS = True
 loadCSS = True
 loadImages = True
@@ -15,7 +30,7 @@ urllib3.disable_warnings()
 timings = list()
 
 
-def runBenchmarks():
+def runBenchmarks(urls):
     for page in urls:
         print("\nRunning page ", page)
         for i in range(0, numberOfRequests):
@@ -136,8 +151,16 @@ def analyzeTimings():
 
 
 if __name__ == "__main__":
-    # execute only if run as a script
-    runBenchmarks()
+    runBenchmarks(http_urls)
     result = analyzeTimings()
-    print("\n", result)
-    printResults()
+    print("\nHTTP:\n", result)
+
+    runBenchmarks(ssl_urls)
+    result = analyzeTimings()
+    print("\nSSL:\n", result)
+
+    runBenchmarks(http2_urls)
+    result = analyzeTimings()
+    print("\nHTTP2:\n", result)
+
+    # printResults()
