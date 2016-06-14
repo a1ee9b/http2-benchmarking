@@ -7,19 +7,20 @@ import time
 from bs4 import BeautifulSoup
 from tabulate import tabulate
 
+host = "localhost"
 urls = [
-    "http://localhost:9001/unoptimized",
-    "http://localhost:9001/concatenated",
-    "http://localhost:9001/optimized",
-    "https://localhost:9002/unoptimized",
-    "https://localhost:9002/concatenated",
-    "https://localhost:9002/optimized",
-    "https://localhost:9003/unoptimized",
-    "https://localhost:9003/concatenated",
-    "https://localhost:9003/optimized"
+    "http://"+host+":9001/unoptimized",
+    "http://"+host+":9001/concatenated",
+    "http://"+host+":9001/optimized",
+    "https://"+host+":9002/unoptimized",
+    "https://"+host+":9002/concatenated",
+    "https://"+host+":9002/optimized",
+    "https://"+host+":9003/unoptimized",
+    "https://"+host+":9003/concatenated",
+    "https://"+host+":9003/optimized"
 ]
 
-numberOfRequests = 10
+numberOfRequests = 1000
 loadJS = True
 loadCSS = True
 loadImages = True
