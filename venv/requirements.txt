@@ -1,9 +1,0 @@
-beautifulsoup4==4.4.1
-bs4==0.0.1
-h2==2.3.1
-hpack==2.2.0
-hyper==0.6.2
-hyperframe==3.2.0
-requests==2.10.0
-tabulate==0.7.5
-urllib3==1.15.1
