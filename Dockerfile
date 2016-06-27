@@ -1,4 +1,4 @@
-FROM nginx
+FROM nginx:alpine
 
 RUN mkdir -p /etc/ssl/certs/
 RUN mkdir -p /etc/nginx/sites-enabled/

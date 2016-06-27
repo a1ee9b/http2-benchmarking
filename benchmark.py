@@ -4,6 +4,7 @@
 import requests
 from hyper.contrib import HTTP20Adapter
 import time
+import csv
 from bs4 import BeautifulSoup
 from tabulate import tabulate
 
@@ -12,12 +13,15 @@ urls = [
     "http://"+host+":9001/unoptimized",
     "http://"+host+":9001/concatenated",
     "http://"+host+":9001/optimized",
+    "http://"+host+":9001/requests100",
     "https://"+host+":9002/unoptimized",
     "https://"+host+":9002/concatenated",
     "https://"+host+":9002/optimized",
+    "https://"+host+":9002/requests100",
     "https://"+host+":9003/unoptimized",
     "https://"+host+":9003/concatenated",
-    "https://"+host+":9003/optimized"
+    "https://"+host+":9003/optimized",
+    "https://"+host+":9003/requests100"
 ]
 
 numberOfRequests = 1000
@@ -36,12 +40,16 @@ def runBenchmarks(links):
         print("\nRunning page ", page)
         timings = list()
         for i in range(0, numberOfRequests):
-            print(". ", end="", flush=True)
+            print(".", end="", flush=True)
             runTiming = runBaseHTML(page, i)
             timings.extend(runTiming)
 
-        result = analyzeTimings(timings)
-        print("\n"+str(result))
+        analyzeTimings(timings)
+
+        with open('benchmark.csv', 'a+', newline = '') as csvFile:
+            writer = csv.writer(csvFile, delimiter = ';', quotechar = '\\', quoting = csv.QUOTE_MINIMAL)
+            for timing in timings:
+                writer.writerow(timing)
 
 
 def runBaseHTML(url, requestNumber):
@@ -162,6 +170,8 @@ def analyzeTimings(timings):
               'maximumRequest': maximumRequest,
               'totalBase': totalBase,
               'totalResources': totalResources}
+
+    print(result)
 
     return result
 
