@@ -1,2 +1,4 @@
 .idea
 benchmark.csv
+venv/
+results/
