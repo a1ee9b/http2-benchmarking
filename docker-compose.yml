@@ -6,3 +6,4 @@ http2:
     - "9003:9003"
   volumes:
     - ./data:/data
+    # - C:\Projekte\http2-benchmarking\data:/data

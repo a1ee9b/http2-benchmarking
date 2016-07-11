@@ -1,5 +1,6 @@
 #! /usr/bin/python3
 # from hyper import HTTPConnection
+import os
 
 import requests
 from hyper.contrib import HTTP20Adapter
@@ -29,6 +30,9 @@ loadJS = True
 loadCSS = True
 loadImages = True
 
+timestamp = str(time.strftime('%Y-%m-%d'))
+filename = os.path.join('results', 'benchmark-lokal-'+str(numberOfRequests)+'-'+timestamp+'.csv')
+
 
 requests.packages.urllib3.disable_warnings()
 s = requests.Session()
@@ -46,7 +50,7 @@ def runBenchmarks(links):
 
         analyzeTimings(timings)
 
-        with open('benchmark.csv', 'a+', newline = '') as csvFile:
+        with open(filename, 'a+', newline = '') as csvFile:
             writer = csv.writer(csvFile, delimiter = ';', quotechar = '\\', quoting = csv.QUOTE_MINIMAL)
             for timing in timings:
                 writer.writerow(timing)
