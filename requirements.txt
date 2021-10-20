@@ -2,7 +2,7 @@
 bs4==0.0.1
 cycler==0.10.0
 h2==2.3.1
-hpack==2.2.0
+hpack==2.3.0
 hyper==0.6.2
 hyperframe==3.2.0
 matplotlib==1.5.1
